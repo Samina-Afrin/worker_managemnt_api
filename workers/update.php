@@ -1,8 +1,13 @@
 <?php
-include '../connection.php';
-$data = json_decode( file_get_contents('php://input'),true );
-$id=$_GET['id'];
-
-$res=$cc->common_update('Workers',$data,['id'=>$id]);
-
+    include '../connection.php';
+    include '../auth_check.php';
+    
+    $id=$_GET['id'];
+    $res=[];
+    if($_POST['name']){
+        $res=$cc->common_update('workers',$_POST,['id'=>$id]);
+    } else {
+        $res['status'] = false;
+        $res['message'] = 'data is not saved';
+    }
 echo json_encode($res);

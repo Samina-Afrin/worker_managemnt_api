@@ -1,6 +1,9 @@
 <?php
-include '../connection.php';
-$id=$_GET['id'];
-$res=$cc->common_delete('Workers',['id'=>$id]);
 
-echo json_encode($res);
+    include '../connection.php';
+    include '../auth_check.php';
+
+    $id=$_GET['id'];
+    $res=$cc->common_delete('workers',['id'=>$id]);
+
+    echo json_encode($res);

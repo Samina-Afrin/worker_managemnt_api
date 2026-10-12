@@ -1,7 +1,7 @@
 <?php
 
 include 'connection.php';
-$data = json_decode(file_get_contents("php://input"),true);
+$data = $_POST;
 
 $data['password'] = sha1(trim($data['password']));
 
@@ -20,9 +20,10 @@ if($result['status'] === true && count($result['data']) > 0){
 		array(
 			"message" => "Successful login.",
 			"jwt" => $remember_token,
-			"data"=>json_encode($rdata)
+			"data"=>json_encode($rdata),
+			"status" => true
 		));
 	
 }else{
-	echo json_encode(array("message" => "Login failed."));
+	echo json_encode(array("message" => "Login failed.", "status" => false));
 }

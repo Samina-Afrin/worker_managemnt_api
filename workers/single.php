@@ -1,7 +1,8 @@
 <?php
 include '../connection.php';
+include '../auth_check.php';
 $id=$_GET['id'];
 
-$result=$cc->common_select('Workers','*',['id'=>$id]);
+$result=$cc->common_select('workers','*',['id'=>$id]);
 
 echo json_encode($result);

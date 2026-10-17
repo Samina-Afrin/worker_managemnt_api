@@ -1,23 +1,16 @@
+
 <?php
-
 include '../connection.php';
-
-$data = json_decode(file_get_contents('php://input'), true);
+include '../auth_check.php';
 
 $res = [];
 
-if ($data['name']) {
-
-    $designation['name'] = $data['name'];
-
-    $res = $cc->common_insert('designations', $designation);
-
+if (isset($_POST['name']) && !empty($_POST['name'])) {
+    $res = $cc->common_insert('designations', $_POST);
 } else {
-
     $res['status'] = false;
-    $res['message'] = 'data is not saved';
+    $res['message'] = 'Designation name is required';
 }
 
 echo json_encode($res);
-
 ?>

@@ -1,8 +1,27 @@
+
 <?php
 include '../connection.php';
-$data = json_decode( file_get_contents('php://input'),true );
-$id=$_GET['id'];
+include '../auth_check.php';
 
-$res=$cc->common_update('Designation',$data,['id'=>$id]);
+$res = [];
+
+if (
+    isset($_GET['id']) &&
+    is_numeric($_GET['id']) &&
+    isset($_POST['name']) &&
+    !empty($_POST['name'])
+) {
+    $id = $_GET['id'];
+
+    $res = $cc->common_update(
+        'designations',
+        $_POST,
+        ['id' => $id]
+    );
+} else {
+    $res['status'] = false;
+    $res['message'] = 'Designation data is not updated';
+}
 
 echo json_encode($res);
+?>

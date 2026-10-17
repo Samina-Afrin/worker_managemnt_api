@@ -1,6 +1,9 @@
+
 <?php
 include '../connection.php';
 include '../auth_check.php';
 
-$result=$cc->common_select('designations','*');
-echo json_encode($result);
+$res = $cc->common_select('designations', '*');
+
+echo json_encode($res);
+?>
